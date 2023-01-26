@@ -1,14 +1,17 @@
-import { ThemeProvider } from "styled-components";
-import { GlobalStyle } from "./styles/global";
-import { defaultTheme } from "./styles/themes/default";
+// Estilos //
+import { GlobalStyles } from './styles/global'
+import 'react-toastify/dist/ReactToastify.css'
+import { Header } from './components/Header'
 
-
-export function App() {
- 
+function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <GlobalStyle />
-      <h1>Hello World</h1>
-    </ThemeProvider>
+    <div>
+      <GlobalStyles />
+      <Header />
+    </div>
+    
+
   )
 }
+
+export default App
