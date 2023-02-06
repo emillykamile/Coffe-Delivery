@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { useLocalStorage } from '../hooks/useLocalStorage'
-// Themes //
+
 import { dark } from '../styles/themes/dark'
 import { light } from '../styles/themes/light'
 

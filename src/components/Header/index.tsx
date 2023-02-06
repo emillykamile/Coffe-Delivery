@@ -1,40 +1,63 @@
-// Imagens, Icones e Logos.
-import LightLogoCoffeeDelivery from '../../assets/logo-light.svg'
+import { useNavigate } from 'react-router-dom'
+import { useCart } from '../../hooks/useCart'
+import { useSwitchTheme } from '../../hooks/useSwitchTheme'
+
+import { House, MapPin, Moon, ShoppingCart, Sun } from 'phosphor-react'
 import DarkLogoCoffeeDelivery from '../../assets/logo.svg'
+import LightLogoCoffeeDelivery from '../../assets/logo-light.svg'
 
-// Hooks
-import { useSwitchTheme } from '../../hooks/useSwitchTheme';
+import {
+  HeaderContainer,
+  LocationBadge,
+  CartButton,
+  HomeButton,
+} from './styles'
 
-// Estilos
-import { HeaderContainer } from "./styles";
+export function Header() {
+  const navigate = useNavigate()
+  const { cart } = useCart()
+  const { toggleTheme, themeSelected } = useSwitchTheme()
 
+  function handleToggleTheme() {
+    toggleTheme(themeSelected === 'light' ? 'dark' : 'light')
+  }
 
-// Troca de Temas
-const { toggleTheme, themeSelected } = useSwitchTheme()
-
-function handleToggleTheme() {
-  toggleTheme(themeSelected === 'light' ? 'dark' : 'light')
-}
-
-export function Header(){
   return (
     <HeaderContainer>
-     <img
+      <img
         src={
           themeSelected === 'light'
-        ? DarkLogoCoffeeDelivery
-        : LightLogoCoffeeDelivery
-      }
+            ? DarkLogoCoffeeDelivery
+            : LightLogoCoffeeDelivery
+        }
         alt="Copo de café"
       />
       <div>
-        {/* API de Local 
-        Dark Theme 
-        Voltar para Home 
-        Carrinho  */}
-      </div>
+        <LocationBadge title="Recife, PE">
+          <MapPin size={18} weight="fill" />
+          <span>Recife, PE</span>
+        </LocationBadge>
 
-  
+        <HomeButton onClick={handleToggleTheme} title="Trocar tema">
+          {themeSelected === 'light' ? (
+            <Moon size={18} weight="bold" />
+          ) : (
+            <Sun size={18} weight="bold" />
+          )}
+        </HomeButton>
+
+        <HomeButton onClick={() => navigate('/')} title="Home">
+          <House size={18} weight="bold" />
+        </HomeButton>
+
+        <CartButton
+          title="Carrinho"
+          onClick={() => navigate('/checkout')}
+          numberToItensAtShopCart={cart.length}
+        >
+          <ShoppingCart size={18} weight="fill" />
+        </CartButton>
+      </div>
     </HeaderContainer>
   )
 }
